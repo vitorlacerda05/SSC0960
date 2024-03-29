@@ -45,7 +45,7 @@ def percorreList(primes, maxDiff, i):
             return percorreList(primes, maxDiff, i + 1)
     return maxDiff
 
-# Início do cógido
+# Início do código
 
 
 x = int(input())
