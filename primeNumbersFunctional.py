@@ -12,36 +12,38 @@ iguais a y.
 # Função para verificar se um número é primo
 
 
-def primeNumber(number):
+def primeNumber(number, i):
     if number <= 1:  # Código base
         return False
     else:
-        for i in range(2, number):  # Se não for primo
-            if number % i == 0:
+        if i < number:  # Código para parada do IF
+            if number % i == 0:  # Se não for primo
                 return False
+            else:
+                return primeNumber(number, i + 1)
         return True  # Se for primo
 
 # Função para adicionar números primos entre x e y numa lista
 
 
 def primeList(primes, x, y):
-    for i in range(x, y + 1):
-        if primeNumber(i):  # Se True (quando for primo)
-            primes.append(i)
-    return primes
+    if x > y:  # Código para parada do IF
+        return primes
+    else:
+        if primeNumber(x, 2):  # Se True (quando for primo)
+            primes.append(x)
+        return primeList(primes, x + 1, y)
 
 # Função calcular o comprimento máximo entre dois primos consecutivos
 
 
-def percorreList(primes):
-    maxDiff = 0
-    for i in range(0, len(primes) - 1):
+def percorreList(primes, maxDiff, i):
+    if i < len(primes) - 1:
         if (primes[i+1] - primes[i]) > maxDiff:
-            maxDiff = (primes[i+1] - primes[i])
+            return percorreList(primes, primes[i+1] - primes[i], i + 1)
         else:
-            continue
+            return percorreList(primes, maxDiff, i + 1)
     return maxDiff
-
 
 # Início do cógido
 
@@ -53,4 +55,4 @@ lista = list()
 
 primeList(lista, x, y)
 
-print(percorreList(lista))
+print(percorreList(lista, 0, 0))
